@@ -2,8 +2,8 @@
 	<head>
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
-	<body>
-		<div class="container">
+	<body ng-app="CalculatorApp">
+		<div ng-controller="CalculatorController" class="container">
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4">
@@ -12,32 +12,21 @@
 							<div class="well">
 								<div class="row">
 									<div class="col-md-12">
-										<input type="text" class="form-control input-lg" />
+										<input type="text" class="form-control input-lg" ng-model="ted" />
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="row-fluid">													
-											<button class="col-md-4 btn btn-default">7</button>
-											<button class="col-md-4 btn btn-default">8</button>
-											<button class="col-md-4 btn btn-default">9</button>
-											<button class="col-md-4 btn btn-default">4</button>
-											<button class="col-md-4 btn btn-default">5</button>
-											<button class="col-md-4 btn btn-default">6</button>
-											<button class="col-md-4 btn btn-default">1</button>
-											<button class="col-md-4 btn btn-default">2</button>
-											<button class="col-md-4 btn btn-default">3</button>
-											<button class="col-md-4 btn btn-default"> </button>
-											<button class="col-md-4 btn btn-default">0</button>
-											<button class="col-md-4 btn btn-default"> </button>
+											<button class="col-md-4 btn btn-default" ng-repeat="value in values track by $index" ng-click="getValue(value)">{{value}}</button>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="row-fluid">
-											<button class="col-md-6 btn btn-lg btn-success">+</button>
-											<button class="col-md-6 btn btn-lg btn-danger">-</button>
-											<button class="col-md-6 btn btn-lg btn-primary">=</button>
-											<button class="col-md-6 btn btn-lg btn-default">c</button>
+											<button class="col-md-6 btn btn-lg btn-success" ng-click="setOperation('add')">+</button>
+											<button class="col-md-6 btn btn-lg btn-danger" ng-click="setOperation('sub')">-</button>
+											<button class="col-md-6 btn btn-lg btn-primary" ng-click="compute()">=</button>
+											<button class="col-md-6 btn btn-lg btn-default" ng-click="clear()">c</button>
 										</div>
 									</div>
 								</div>
@@ -47,6 +36,51 @@
 				</div>
 				<div class="col-md-4"></div>
 			</div>
+			{{var1}}
+			{{operation}}
+			{{var2}}
+			
 		</div>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript">
+			var CalculatorApp = angular.module("CalculatorApp",[])
+			CalculatorApp.controller("CalculatorController",function($scope){
+				$scope.values = ['7','8','9','4','5','6','1','2','3',' ','0',' '];
+				$scope.var1 = null;
+				$scope.var2 = null;
+				$scope.ted = null;
+				$scope.getValue = function(value){
+					if($scope.var1===null){
+						$scope.var1=parseInt(value);
+					}
+					else
+					{
+						$scope.var2=parseInt(value);
+					}
+					$scope.ted = value;
+				};
+				$scope.setOperation = function(value){
+					$scope.operation = value;
+				};
+				$scope.compute = function()
+				{
+					if($scope.operation === 'add')
+					{
+						$scope.answer = $scope.var1 + $scope.var2;
+					}
+					else if($scope.operation === 'sub')
+					{
+						$scope.answer = $scope.var1 - $scope.var2
+					}
+					$scope.ted = $scope.answer;
+				}
+				$scope.clear = function(){
+					$scope.var1 = null;
+					$scope.var2 = null;
+					$scope.operation = null;
+					$scope.ted = null;
+				};
+			});
+		</script>
 	</body>
 </html>
