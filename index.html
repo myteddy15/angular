@@ -3,9 +3,11 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
 	<body ng-app="SampleApp">
+		<div ng-controller="SampleController"></div>
 		<script type="text/javascript" src="js/angular.min.js" />
 		<script type="text/javascript">
 			var SampleApp = angular.module("SampleApp");
+			var SampleController = SampleApp.controller("SampleController");
 		</script>
 	</body>
 </html>
