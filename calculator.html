@@ -18,7 +18,7 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="row-fluid">													
-											<button class="col-md-4 btn btn-default" ng-repeat="value in values track by $index" ng-click="getValue(value)">{{value}}</button>
+											<button class="col-md-4 btn btn-default" ng-repeat="value in values track by $index" ng-click="getValue(value)" ng-hide="value === ' '" ng-class="{'col-md-offset-4': value==='0', 'btn-primary' : value%2 === 0}">{{value}}</button>
 										</div>
 									</div>
 									<div class="col-md-6">
@@ -39,6 +39,8 @@
 			{{var1}}
 			{{operation}}
 			{{var2}}
+			<input type="checkbox" ng-checked="true"/>
+			<input type="radio" ng-checked="true"/>
 			
 		</div>
 		<script type="text/javascript" src="js/angular.min.js"></script>
